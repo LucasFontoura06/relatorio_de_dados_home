@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatório – Home Imobiliária</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Relatório de Dados – Home Imobiliária</h1>
+      <p class="subtitle">Visão geral e indicadores por portal</p>
+      <p class="portais">DF Imóveis · Super Lógica · Wimoveis · Meta</p>
+      <div class="report-header-actions">
+        <button class="btn btn-outline-light btn-sm" onclick="window.print()">Exportar em PDF</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="report-intro">
+        <h2>Introdução</h2>
+        <p>Este relatório consolida os dados operacionais da <strong>Home Imobiliária</strong>, reunindo indicadores de leads, atendimentos, contatos e visualizações de anúncios a partir dos portais <strong>DF Imóveis</strong>, <strong>Super Lógica</strong>, <strong>Wimoveis</strong> e <strong>Meta</strong>.</p>
+        <p>O que você verá a seguir:</p>
+        <ul>
+          <li><strong>Leads Total Home (Venda) e Leads Total Aluguel</strong> — volume de leads por corretor, imóveis mais procurados e evolução mensal.</li>
+          <li><strong>Super Lógica</strong> — atendimentos por corretor, mídia, status, imobiliária, faixa de preço e por mês.</li>
+          <li><strong>Wimoveis</strong> — contatos por tipo de operação (venda e aluguel), tipo de imóvel, cidade e bairro.</li>
+          <li><strong>DF Imóveis – Contatos</strong> — total de contatos, distribuição por negócio (venda/aluguel), tipo de imóvel, Top 5 DDD e totais por cidade.</li>
+          <li><strong>DF Imóveis – Visualização</strong> — totais de acessos e contatos por imóvel, por negócio, situação e imóveis com mais acessos.</li>
+          <li><strong>Métricas gerais</strong> — visão consolidada por venda e aluguel, grupos e atendimentos por portal.</li>
+        </ul>
+        <p>Use o botão <strong>Exportar em PDF</strong> no topo da página para salvar o relatório.</p>
+      </div>
+
+      <section id="secao-leads_total_home">
+        <div class="card section-card">
+          <div class="card-logo-row">
+            <div class="card-logo-wrap"><img src="img/img_meta.jpeg" alt="Leads" class="card-logo" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="card-logo-placeholder" style="display:none">L</span></div>
+            <div class="card-header">Leads Total Home (Venda) - Grupo de distribuição de leads</div>
+          </div>
+          <div class="card-body"><div data-content id="leads-total-home-content">
+<div class="wimoveis-cards">
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card wimoveis-card-total"><span class="wimoveis-card-total-label">Total de leads</span><span class="wimoveis-card-total-num">83</span></div>
+</div>
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card" style="grid-column: 1 / -1;">
+<div class="bloco-dado">
+<h3>Imóveis que mais aparecem</h3>
+<div class="chart-wrapper chart-barras-lateral"><canvas id="chartLeadsHomeImoveis"></canvas></div>
+</div></div>
+<div class="wimoveis-card" style="grid-column: 1 / -1;">
+<div class="bloco-dado">
+<h3>Corretores que mais aparecem</h3>
+<div class="chart-wrapper chart-barras-lateral"><canvas id="chartLeadsHomeCorretores"></canvas></div>
+</div></div>
+</div>
+</div>
+<script>
+Chart.register(ChartDataLabels);
+var el = document.getElementById('chartLeadsHomeImoveis');
+if (el) {
+  new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: ["Lote Lago Sul", "Casa Dom", "Amaze locação", "Selection", "Casa Nor", "SQNW 104", "Apartamento Selection", "Locação Mandarim", "SQS 105", "Locação SQN 310", "Apartamento Santorini", "Lead Locação", "SQNW 302", "Apartamento Essence", "Locação", "SQN 310", "Cobertura", "Code (novo)", "Monumental", "Busca apartamento para comprar na Asa Sul", "Busca venda no Mandarim", "Casa nor", "SQNW 110", "Apto Asa sul"],
+      datasets: [{ label: 'Leads', data: [17, 11, 10, 7, 5, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], backgroundColor: ["rgba(37, 99, 235, 0.9)", "rgba(5, 150, 105, 0.9)", "rgba(217, 119, 6, 0.9)", "rgba(220, 38, 38, 0.9)", "rgba(124, 58, 237, 0.9)", "rgba(8, 145, 178, 0.9)", "rgba(101, 163, 13, 0.9)", "rgba(234, 88, 12, 0.9)", "rgba(147, 51, 234, 0.9)", "rgba(190, 18, 60, 0.9)", "rgba(13, 148, 136, 0.9)", "rgba(194, 65, 12, 0.9)", "rgba(37, 99, 235, 0.9)", "rgba(5, 150, 105, 0.9)", "rgba(217, 119, 6, 0.9)", "rgba(220, 38, 38, 0.9)", "rgba(124, 58, 237, 0.9)", "rgba(8, 145, 178, 0.9)", "rgba(101, 163, 13, 0.9)", "rgba(234, 88, 12, 0.9)", "rgba(147, 51, 234, 0.9)", "rgba(190, 18, 60, 0.9)", "rgba(13, 148, 136, 0.9)", "rgba(194, 65, 12, 0.9)"], borderColor: '#fff', borderWidth: 1 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'end', color: '#1e293b', font: { weight: 'bold', size: 12 }, formatter: function(v) { return v > 0 ? v : ''; } } },
+      layout: { padding: { left: 20, right: 16 } },
+      scales: { x: { beginAtZero: true, grid: { color: '#f1f5f9' } }, y: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: false, font: { weight: 'bold', size: 11 } } } }
+    }
+  });
+}
+</script>
+<script>
+Chart.register(ChartDataLabels);
+var el = document.getElementById('chartLeadsHomeCorretores');
+if (el) {
+  new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: ["Cleiton Magalhães", "Fernando Righi", "Marcus Jenaro", "Luiz Passos", "Nay Andrade", "indicação Porteiro Anderson", "Tiago Lobo", "Grupo Lago"],
+      datasets: [{ label: 'Leads', data: [14, 12, 10, 8, 5, 3, 2, 2], backgroundColor: ["rgba(37, 99, 235, 0.9)", "rgba(5, 150, 105, 0.9)", "rgba(217, 119, 6, 0.9)", "rgba(220, 38, 38, 0.9)", "rgba(124, 58, 237, 0.9)", "rgba(8, 145, 178, 0.9)", "rgba(101, 163, 13, 0.9)", "rgba(234, 88, 12, 0.9)"], borderColor: '#fff', borderWidth: 1 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'end', color: '#1e293b', font: { weight: 'bold', size: 12 }, formatter: function(v) { return v > 0 ? v : ''; } } },
+      layout: { padding: { left: 20, right: 16 } },
+      scales: { x: { beginAtZero: true, grid: { color: '#f1f5f9' } }, y: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: false, font: { weight: 'bold', size: 11 } } } }
+    }
+  });
+}
+</script>
+</div></div>
+        </div>
+      </section>
+
+      <section id="secao-leads_total_aluguel">
+        <div class="card section-card">
+          <div class="card-logo-row">
+            <div class="card-logo-wrap"><img src="img/img_meta.jpeg" alt="Leads" class="card-logo" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="card-logo-placeholder" style="display:none">L</span></div>
+            <div class="card-header">Leads Total Home (Aluguel) - Grupo de distribuição de leads</div>
+          </div>
+          <div class="card-body"><div data-content id="leads-total-aluguel-content">
+<div class="wimoveis-cards">
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card wimoveis-card-total"><span class="wimoveis-card-total-label">Total de leads</span><span class="wimoveis-card-total-num">54</span></div>
+<div class="wimoveis-card">
+<div class="bloco-dado">
+<h3>Corretor que mais atendeu</h3>
+<p class="destaque">Joselice Moura</p>
+<p class="chart-total" style="margin-top:8px;">54 atendimentos</p>
+</div></div>
+</div>
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card" style="grid-column: 1 / -1;">
+<div class="bloco-dado">
+<h3>Imóveis mais procurados</h3>
+<div class="chart-wrapper chart-barras-lateral"><canvas id="chartLeadsAluguelImoveis"></canvas></div>
+</div></div>
+</div>
+</div>
+<script>
+Chart.register(ChartDataLabels);
+var el = document.getElementById('chartLeadsAluguelImoveis');
+if (el) {
+  new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: ["SQN 310", "Amaze locação", "Loja Ana capri", "Lead Locação", "Locação Mandarim", "Mandarim", "Amaze locação / Oferecer outros", "Busca locação de 2 quartos no noroeste", "Procura Locação 1 quarto", "Locação Amaze"],
+      datasets: [{ label: 'Buscas', data: [28, 10, 4, 3, 3, 2, 1, 1, 1, 1], backgroundColor: ["rgba(37, 99, 235, 0.9)", "rgba(5, 150, 105, 0.9)", "rgba(217, 119, 6, 0.9)", "rgba(220, 38, 38, 0.9)", "rgba(124, 58, 237, 0.9)", "rgba(8, 145, 178, 0.9)", "rgba(101, 163, 13, 0.9)", "rgba(234, 88, 12, 0.9)", "rgba(147, 51, 234, 0.9)", "rgba(190, 18, 60, 0.9)"], borderColor: '#fff', borderWidth: 1 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'end', color: '#1e293b', font: { weight: 'bold', size: 12 }, formatter: function(v) { return v > 0 ? v : ''; } } },
+      layout: { padding: { left: 20, right: 16 } },
+      scales: { x: { beginAtZero: true, grid: { color: '#f1f5f9' } }, y: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: false, font: { weight: 'bold', size: 11 } } } }
+    }
+  });
+}
+</script>
+</div></div>
+        </div>
+      </section>
+
+      <section id="secao-dados_wimoveis">
+        <div class="card section-card">
+          <div class="card-logo-row">
+            <div class="card-logo-wrap"><img src="img/img_wimoveis.jpeg" alt="Wimoveis" class="card-logo" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="card-logo-placeholder" style="display:none">W</span></div>
+            <div class="card-header">Wimoveis</div>
+          </div>
+          <div class="card-body"><div data-content>
+<div class="wimoveis-cards">
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card wimoveis-card-total"><span class="wimoveis-card-total-label">Total de registros</span><span class="wimoveis-card-total-num">28</span></div>
+<div class="wimoveis-card wimoveis-card-operacao">
+<div class="bloco-dado">
+<h3>Tipo de operação mais realizizada</h3>
+<p class="destaque">Aluguel</p>
+</div></div>
+</div>
+<div class="wimoveis-card" style="grid-column: 1 / -1;">
+<div class="bloco-dado">
+<h3>Imóveis mais vistos</h3>
+<div class="chart-wrapper chart-barras-lateral"><canvas id="chartWimoveisImoveis"></canvas></div>
+</div></div>
+<div class="wimoveis-card wimoveis-card-chart">
+<div class="bloco-dado graficos-rosca">
+<h3>Tipos de operação</h3>
+<div class="chart-wrapper chart-rosca"><canvas id="chartOperacao"></canvas></div>
+<p class="chart-total">Total: 28</p>
+</div></div>
+<div class="wimoveis-card wimoveis-card-chart">
+<div class="bloco-dado graficos-rosca">
+<h3>Bairros mais procurados</h3>
+<div class="chart-wrapper chart-rosca"><canvas id="chartBairros"></canvas></div>
+<p class="chart-total">Total: 28</p>
+</div></div>
+</div>
+<script>
+Chart.register(ChartDataLabels);
+Chart.defaults.color = '#475569';
+Chart.defaults.borderColor = '#e2e8f0';
+Chart.defaults.font.family = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+var pluginTotalCentro = {
+  id: 'totalCentro',
+  afterDraw: function(chart) {
+    if (chart.config.type !== 'doughnut' || !chart.options.centerTotal) return;
+    var ctx = chart.ctx, chartArea = chart.chartArea;
+    if (!chartArea) return;
+    var total = chart.data.datasets[0].data.reduce(function(a, b) { return a + b; }, 0);
+    var x = (chartArea.left + chartArea.right) / 2, y = (chartArea.top + chartArea.bottom) / 2;
+    ctx.save();
+    ctx.font = 'bold 28px Inter, sans-serif';
+    ctx.fillStyle = '#1e293b';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(total, x, y - 8);
+    ctx.font = '12px Inter, sans-serif';
+    ctx.fillStyle = '#64748b';
+    ctx.fillText('total', x, y + 16);
+    ctx.restore();
+  }
+};
+var coresPaleta = ["rgba(37, 99, 235, 0.9)", "rgba(5, 150, 105, 0.9)", "rgba(217, 119, 6, 0.9)", "rgba(220, 38, 38, 0.9)", "rgba(124, 58, 237, 0.9)", "rgba(8, 145, 178, 0.9)", "rgba(101, 163, 13, 0.9)", "rgba(234, 88, 12, 0.9)", "rgba(147, 51, 234, 0.9)", "rgba(190, 18, 60, 0.9)"];
+
+var opLabels = ["Aluguel", "Venda"];
+var opValues = [22, 6];
+new Chart(document.getElementById('chartOperacao'), {
+  type: 'doughnut',
+  data: {
+    labels: opLabels,
+    datasets: [{ data: opValues, backgroundColor: coresPaleta.slice(0, opLabels.length), borderWidth: 2, borderColor: '#fff' }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, centerTotal: true, cutout: '55%',
+    plugins: { legend: { position: 'right' }, datalabels: { color: '#fff', font: { weight: 'bold', size: 16 }, formatter: function(v) { return v > 0 ? v : ''; } } }
+  },
+  plugins: [pluginTotalCentro]
+});
+
+var bairroLabels = ["Noroeste", "Sudoeste"];
+var bairroValues = [17, 11];
+new Chart(document.getElementById('chartBairros'), {
+  type: 'doughnut',
+  data: {
+    labels: bairroLabels,
+    datasets: [{ data: bairroValues, backgroundColor: coresPaleta.slice(0, bairroLabels.length), borderWidth: 2, borderColor: '#fff' }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, centerTotal: true, cutout: '55%',
+    plugins: { legend: { position: 'right' }, datalabels: { color: '#fff', font: { weight: 'bold', size: 16 }, formatter: function(v) { return v > 0 ? v : ''; } } }
+  },
+  plugins: [pluginTotalCentro]
+});
+
+var imoveisLabels = ["CLSW 103 PARA LOCAÇÃO - 44m² - 2 QUARTOS - MOBILIADO E DECORADO", "SQNW 302 - 75m² - 2 QUARTOS (1SUÍTE) - MOBILIADO", "SQNW 104 - 162m² - 3 SUÍTES - MOBILIADO", "CLNW 4/5 - 54m² - 2 QUARTOS (1 SUÍTE) - NOVO", "CLNW 4/5 PARA LOCAÇÃO - 34m² - 1 SUÍTE - MOBILIADO E DECORADO", "SQNW 110  - 185m² - 4 SUÍTES - VISTA LIVRE", "SQNW 302  - 69m² - 2 QUARTOS ( 1 SUÍTE) - LAZER COMPLETO"];
+var imoveisValues = [11, 6, 4, 3, 2, 1, 1];
+var elImoveis = document.getElementById('chartWimoveisImoveis');
+if (elImoveis) {
+  new Chart(elImoveis, {
+    type: 'bar',
+    data: {
+      labels: imoveisLabels,
+      datasets: [{ label: 'Visualizações', data: imoveisValues, backgroundColor: coresPaleta.slice(0, imoveisLabels.length), borderColor: '#fff', borderWidth: 1 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { left: 20, right: 16 } },
+      plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'end', color: '#1e293b', font: { weight: 'bold', size: 12 }, formatter: function(v) { return v > 0 ? v : ''; } } },
+      scales: { x: { beginAtZero: true, grid: { color: '#f1f5f9' } }, y: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: false, font: { weight: 'bold', size: 11 } } } }
+    }
+  });
+}
+</script>
+</div></div>
+        </div>
+      </section>
+
+      <section id="secao-super_logica">
+        <div class="card section-card">
+          <div class="card-logo-row">
+            <div class="card-logo-wrap"><img src="img/img_superlogica.jpeg" alt="Super Lógica" class="card-logo" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="card-logo-placeholder" style="display:none">SL</span></div>
+            <div class="card-header">Super Lógica</div>
+          </div>
+          <div class="card-body"><div data-content id="super-logica-content">
+<div class="wimoveis-cards">
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card wimoveis-card-total"><span class="wimoveis-card-total-label">Total de registros</span><span class="wimoveis-card-total-num">83</span></div>
+</div>
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card wimoveis-card-chart">
+<div class="bloco-dado graficos-rosca">
+<h3>Tipos de mídia</h3>
+<div class="chart-wrapper chart-rosca"><canvas id="chartSuperLogicaMidia"></canvas></div>
+<p class="chart-total">Total: 83</p>
+</div></div>
+<div class="wimoveis-card">
+<div class="bloco-dado">
+<h3>Corretores que mais aparecem</h3>
+<ul class="lista-dados">
+<li><span class="label">Joselice de Almeida Moura</span> <span class="valor">70</span></li>
+<li><span class="label">Tiago Crivaro Lobo</span> <span class="valor">5</span></li>
+<li><span class="label">Marcus Vinicius Genaro</span> <span class="valor">4</span></li>
+<li><span class="label">Marieli da Silveira</span> <span class="valor">2</span></li>
+<li><span class="label">Fernando Righi</span> <span class="valor">1</span></li>
+<li><span class="label">Raquel Orro</span> <span class="valor">1</span></li>
+</ul>
+</div></div>
+</div>
+</div>
+<script>
+Chart.register(ChartDataLabels);
+var pluginTotalCentro = {
+  id: 'totalCentro',
+  afterDraw: function(chart) {
+    if (chart.config.type !== 'doughnut' || !chart.options.centerTotal) return;
+    var ctx = chart.ctx, chartArea = chart.chartArea;
+    if (!chartArea) return;
+    var total = chart.data.datasets[0].data.reduce(function(a, b) { return a + b; }, 0);
+    var x = (chartArea.left + chartArea.right) / 2, y = (chartArea.top + chartArea.bottom) / 2;
+    ctx.save();
+    ctx.font = 'bold 28px Inter, sans-serif';
+    ctx.fillStyle = '#1e293b';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(total, x, y - 8);
+    ctx.font = '12px Inter, sans-serif';
+    ctx.fillStyle = '#64748b';
+    ctx.fillText('total', x, y + 16);
+    ctx.restore();
+  }
+};
+var coresPaletaSL = ["rgba(37, 99, 235, 0.9)", "rgba(5, 150, 105, 0.9)", "rgba(217, 119, 6, 0.9)", "rgba(220, 38, 38, 0.9)", "rgba(124, 58, 237, 0.9)", "rgba(8, 145, 178, 0.9)", "rgba(101, 163, 13, 0.9)", "rgba(234, 88, 12, 0.9)", "rgba(147, 51, 234, 0.9)", "rgba(190, 18, 60, 0.9)"];
+var midiaLabels = ["DF Imóveis", "Imóvel Web", "WhatsApp", "Viva Real", "Carteira Própria - Corretor"];
+var midiaValues = [54, 26, 1, 1, 1];
+var el = document.getElementById('chartSuperLogicaMidia');
+if (el) {
+  new Chart(el, {
+    type: 'doughnut',
+    data: { labels: midiaLabels, datasets: [{ data: midiaValues, backgroundColor: coresPaletaSL.slice(0, midiaLabels.length), borderWidth: 2, borderColor: '#fff' }] },
+    options: { responsive: true, maintainAspectRatio: false, centerTotal: true, cutout: '55%',
+      plugins: { legend: { position: 'right' }, datalabels: { color: '#fff', font: { weight: 'bold', size: 16 }, formatter: function(v) { return v > 0 ? v : ''; } } }
+    },
+    plugins: [pluginTotalCentro]
+  });
+}
+</script>
+</div></div>
+        </div>
+      </section>
+
+      <section id="secao-df_imoveis_contatos">
+        <div class="card section-card">
+          <div class="card-logo-row">
+            <div class="card-logo-wrap"><img src="img/img_dfImoveis.jpeg" alt="DF Imóveis" class="card-logo" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="card-logo-placeholder" style="display:none">DF</span></div>
+            <div class="card-header">DF Imóveis – Contatos</div>
+          </div>
+          <div class="card-body"><div data-content id="df-imoveis-contatos-content">
+<div class="wimoveis-cards">
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card wimoveis-card-total"><span class="wimoveis-card-total-label">Total de registros</span><span class="wimoveis-card-total-num">61</span></div>
+</div>
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card wimoveis-card-chart">
+<div class="bloco-dado graficos-rosca">
+<h3>Tipo</h3>
+<div class="chart-wrapper chart-rosca"><canvas id="chartDfImoveisTipo"></canvas></div>
+<p class="chart-total">Total: 61</p>
+</div></div>
+<div class="wimoveis-card wimoveis-card-chart">
+<div class="bloco-dado graficos-rosca">
+<h3>Negócio</h3>
+<div class="chart-wrapper chart-rosca"><canvas id="chartDfImoveisNegocio"></canvas></div>
+<p class="chart-total">Total: 61</p>
+</div></div>
+</div>
+</div>
+<script>Chart.register(ChartDataLabels);
+var pluginTotalCentro = {
+  id: 'totalCentro',
+  afterDraw: function(chart) {
+    if (chart.config.type !== 'doughnut' || !chart.options.centerTotal) return;
+    var ctx = chart.ctx, chartArea = chart.chartArea;
+    if (!chartArea) return;
+    var total = chart.data.datasets[0].data.reduce(function(a, b) { return a + b; }, 0);
+    var x = (chartArea.left + chartArea.right) / 2, y = (chartArea.top + chartArea.bottom) / 2;
+    ctx.save();
+    ctx.font = 'bold 28px Inter, sans-serif';
+    ctx.fillStyle = '#1e293b';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(total, x, y - 8);
+    ctx.font = '12px Inter, sans-serif';
+    ctx.fillStyle = '#64748b';
+    ctx.fillText('total', x, y + 16);
+    ctx.restore();
+  }
+};
+var coresPaletaDF = ["rgba(37, 99, 235, 0.9)", "rgba(5, 150, 105, 0.9)", "rgba(217, 119, 6, 0.9)", "rgba(220, 38, 38, 0.9)", "rgba(124, 58, 237, 0.9)", "rgba(8, 145, 178, 0.9)", "rgba(101, 163, 13, 0.9)", "rgba(234, 88, 12, 0.9)", "rgba(147, 51, 234, 0.9)", "rgba(190, 18, 60, 0.9)"];
+var tipoLabels = ["Apartamento", "Lote"];
+var tipoValues = [60, 1];
+
+var elTipo = document.getElementById('chartDfImoveisTipo');
+if (elTipo) {
+  new Chart(elTipo, {
+    type: 'doughnut',
+    data: { labels: tipoLabels, datasets: [{ data: tipoValues, backgroundColor: coresPaletaDF.slice(0, tipoLabels.length), borderWidth: 2, borderColor: '#fff' }] },
+    options: { responsive: true, maintainAspectRatio: false, centerTotal: true, cutout: '55%',
+      plugins: { legend: { position: 'right' }, datalabels: { color: '#fff', font: { weight: 'bold', size: 16 }, formatter: function(v) { return v > 0 ? v : ''; } } }
+    },
+    plugins: [pluginTotalCentro]
+  });
+}
+var negocioLabels = ["Aluguel", "Venda"];
+var negocioValues = [50, 11];
+
+var elNegocio = document.getElementById('chartDfImoveisNegocio');
+if (elNegocio) {
+  new Chart(elNegocio, {
+    type: 'doughnut',
+    data: { labels: negocioLabels, datasets: [{ data: negocioValues, backgroundColor: coresPaletaDF.slice(0, negocioLabels.length), borderWidth: 2, borderColor: '#fff' }] },
+    options: { responsive: true, maintainAspectRatio: false, centerTotal: true, cutout: '55%',
+      plugins: { legend: { position: 'right' }, datalabels: { color: '#fff', font: { weight: 'bold', size: 16 }, formatter: function(v) { return v > 0 ? v : ''; } } }
+    },
+    plugins: [pluginTotalCentro]
+  });
+}</script>
+</div></div>
+        </div>
+      </section>
+
+      <section id="secao-df_imoveis_visualizacao">
+        <div class="card section-card">
+          <div class="card-logo-row">
+            <div class="card-logo-wrap"><img src="img/img_dfImoveis.jpeg" alt="DF Imóveis" class="card-logo" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="card-logo-placeholder" style="display:none">DF</span></div>
+            <div class="card-header">DF Imóveis – Visualização</div>
+          </div>
+          <div class="card-body"><div data-content id="df-imoveis-visualizacao-content">
+<div class="wimoveis-cards">
+<div class="wimoveis-row-resumo">
+<div class="wimoveis-card wimoveis-card-total"><span class="wimoveis-card-total-label">Imóveis</span><span class="wimoveis-card-total-num">23</span></div>
+<div class="wimoveis-card wimoveis-card-total"><span class="wimoveis-card-total-label">Total de acessos</span><span class="wimoveis-card-total-num">5198</span></div>
+</div>
+<div class="wimoveis-card" style="grid-column: 1 / -1;">
+<div class="bloco-dado">
+<h3>Imóveis por total de acessos</h3>
+<div class="chart-wrapper chart-barras-lateral"><canvas id="chartDfImoveisAcessos"></canvas></div>
+</div></div>
+</div>
+<script>
+Chart.register(ChartDataLabels);
+var coresPaletaAcessos = ["rgba(37, 99, 235, 0.9)", "rgba(5, 150, 105, 0.9)", "rgba(217, 119, 6, 0.9)", "rgba(220, 38, 38, 0.9)", "rgba(124, 58, 237, 0.9)", "rgba(8, 145, 178, 0.9)", "rgba(101, 163, 13, 0.9)", "rgba(234, 88, 12, 0.9)", "rgba(147, 51, 234, 0.9)", "rgba(190, 18, 60, 0.9)"];
+var acessosLabels = ["SUDOESTE - CLSW 103 — Aluguel", "NOROESTE - SQNW 302 Bloco A — Aluguel", "NOROESTE - CLNW 4/5 Lote J — Aluguel", "NOROESTE - SQNW 110 Bloco K — Venda", "ASA NORTE - SQN 309 Bloco I — Aluguel", "NOROESTE - CRNW 503 Bloco A Lote 1 — Aluguel", "NOROESTE - SQNW 302 Bloco A — Venda", "NOROESTE - SQNW 104 Bloco E — Venda", "LAGO SUL - SHIS QI 26 Conjunto 8 — Venda", "NOROESTE - SQNW 111 — Venda", "LAGO SUL - SHIS QL 16 Conjunto 2 — Venda", "NOROESTE - CLNW 4/5 Lote J — Venda", "NOROESTE - CLNW 4/5 Lote D — Aluguel", "NOROESTE - SQNW 109 — Venda", "JARDIM BOTANICO - Condomínio Quintas do Sol — Venda", "NOROESTE - SQNW 303 Bloco F — Venda", "ASA SUL - SQS 105 — Venda", "ASA SUL - SQS 307 — Venda", "NOROESTE - CRNW 511 Bloco A Lote 1 — Aluguel", "NOROESTE - SQNW 311 Bloco D — Aluguel", "LAGO SUL - SHIS QI 23 Conjunto 3 — Venda", "NOROESTE - SQNW 310 Bloco D — Venda", "NOROESTE - SQNW 303 — Venda"];
+var acessosValues = [1162, 857, 562, 510, 367, 334, 325, 234, 157, 127, 119, 107, 100, 69, 36, 33, 30, 28, 15, 14, 7, 3, 2];
+var el = document.getElementById('chartDfImoveisAcessos');
+if (el) {
+  new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: acessosLabels,
+      datasets: [{ label: 'Acessos', data: acessosValues, backgroundColor: coresPaletaAcessos.slice(0, acessosLabels.length), borderColor: '#fff', borderWidth: 1 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'end', color: '#1e293b', font: { weight: 'bold', size: 12 }, formatter: function(v) { return v > 0 ? v : ''; } } },
+      layout: { padding: { left: 20, right: 16 } },
+      scales: { x: { beginAtZero: true, grid: { color: '#f1f5f9' } }, y: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: false, font: { weight: 'bold', size: 11 } } } }
+    }
+  });
+}
+</script>
+</div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
